@@ -1,0 +1,347 @@
+Accuknox DevOps Trainee Practical Assessment
+=========================================================================================
+Problem Statement 1:
+Title: Containerisation and Deployment of Wisecow Application on Kub
+=========================================================================================
+
+I put in my best effort, but unfortunately, I couldn't achieve the exact output I was aiming for in the first problem of the assignment.
+Here are the commands I used while working on this assignment:
+
+
+    1  apt update -y
+    2  apt upgrade -y
+    3  apt install git -y
+    4  git clone https://github.com/nyrahul/wisecow.git
+    5  ll
+    6  sudo apt install curl wget apt-transport-https -y
+    7  atest/minikube-linux-amd64
+    8  ll
+    9  sudo mv minikube-linux-amd64 /usr/local/bin/minikube
+   10  chmod +x /usr/local/bin/minikube
+   11  minikube version
+   12  ll
+   13  curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+   14  ll
+   15  curl-LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stale.txt)/bin/linux/amd64/kubectl.sha256"
+   16  sudo curl-LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stale.txt)/bin/linux/amd64/kubectl.sha256"
+   17  pt install curl wget apt-transport-https -y
+   18  sudo curl -fsSL https://get.docker.com -o get-docker.sh
+   19  sudo sh get-docker.sh
+   20  sudo curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stale.txt)/bin/linux/amd64/kubectl.sha256"
+   21  sudo apt install curl wget apt-transport-https -y
+   22  sudo curl -fsSL https://get.docker.com -o get-docker.sh
+   23  sudo sh get-docker.sh
+   24  ll
+   25  curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+   26  curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stale.txt)/bin/linux/amd64/kubectl.sha256"
+   27  echo "$(cat kubectl.sha256)kubectl" | sha256sum --check
+   28  install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+   29  kubectl version --client
+   30  kubectl version --client --output=yaml
+   31  minikube start --driver=docker --force
+   32  minikube status
+   33  kubectl get pod
+   34  minikube start --driver=docker --force
+   35  kubectl get po
+   36  curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+   37  chmod +x ./kubectl
+   38  sudo mv ./kubectl /usr/local/bin/kubectl
+   39  minikube start --driver=docker --force
+   40  apt install minikube
+   41  curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+   42  sudo install minikube-linux-amd64 /usr/local/bin/minikube
+   43  sudo chmod +x /usr/local/bin/minikube
+   44  minikube version
+   45  minikube start --driver=docker --force
+   46  kubectl get po
+   47  minikube start --driver=docker --force
+   48  sudo sysctl fs.protected_regular=0
+   49  minikube start --driver=docker
+   50  minikube start --driver=none
+   51  kubectl get po
+   52  vim Dockerfile
+   53  vim deployment.yml
+   54  vim service.yml
+   55  sudo apt update
+   56  sudo apt install fortune-mod cowsay
+   57  docker build -t wisecow:latest .
+   58  vim wisecow.sh
+   59  docker build -t wisecow:latest .
+   60  kubectl apply -f deployment.yaml
+   61  kubectl apply -f service.yaml
+   62  vim deployment.yaml
+   63  vim service.yaml
+   64  kubectl apply -f deployment.yaml
+   65  kubectl apply -f service.yaml
+   66  kubectl apply -f deployment.yaml --validate=false
+   67  nano ~/.kube/config
+   68  kubectl apply -f deployment.yaml --validate=false
+   69  ping 192.168.49.2
+   70  history
+root@ip-172-31-41-97:~# vim Dockerfile
+root@ip-172-31-41-97:~# cat Dockerfile
+# Use Ubuntu as the base image
+FROM ubuntu:latest
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the application files to the container
+COPY wisecow.sh /app
+
+# Install necessary dependencies
+RUN apt-get update && apt-get install -y fortune-mod cowsay
+
+# Specify the command to run the application
+CMD ["./wisecow.sh"]
+root@ip-172-31-41-97:~# cat deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wisecow-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wisecow
+  template:
+    metadata:
+      labels:
+        app: wisecow
+    spec:
+      containers:
+      - name: wisecow
+        image: wisecow:latest
+        ports:
+        - containerPort: 4499
+
+root@ip-172-31-41-97:~# cat service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: wisecow-service
+spec:
+  selector:
+    app: wisecow
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 4499
+  type: NodePort  # Change to LoadBalancer if needed
+
+root@ip-172-31-41-97:~#
+ ll
+    2  ping 13.126.203.124
+    3  kubectl apply -f deployment.yaml --validate=false
+    4  docker build -t wisecow:latest .
+    5  docker push wisecow:latest
+    6  docker login
+    7  docker push wisecow:latest
+    8  docker build -t wisecow:latest .
+    9  docker push wisecow:latest
+   10  docker tag local-image:latest wisecow:latest
+   11  docker push wisecow:latest
+   12  docker tag wisecow:latest wisecow:latest
+   13  docker push wisecow:latest
+   14  history
+root@ip-172-31-41-97:~# cat Dockerfile
+# Use Ubuntu as the base image
+FROM ubuntu:latest
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the application files to the container
+COPY wisecow.sh /app
+
+# Install necessary dependencies
+RUN apt-get update && apt-get install -y fortune-mod cowsay
+
+# Specify the command to run the application
+CMD ["./wisecow.sh"]
+root@ip-172-31-41-97:~# cat deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wisecow-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wisecow
+  template:
+    metadata:
+      labels:
+        app: wisecow
+    spec:
+      containers:
+      - name: wisecow
+        image: wisecow:latest
+        ports:
+        - containerPort: 4499
+
+root@ip-172-31-41-97:~# cat service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: wisecow-service
+spec:
+  selector:
+    app: wisecow
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 4499
+  type: NodePort  # Change to LoadBalancer if needed
+
+root@ip-172-31-41-97:~# ll
+total 91584
+drwx------  9 root root     4096 Feb  6 13:29 ./
+drwxr-xr-x 19 root root     4096 Feb  6 12:35 ../
+-rw-r--r--  1 root root     3106 Dec  5  2019 .bashrc
+drwx------  3 root root     4096 Feb  6 13:45 .docker/
+drwxr-xr-x  2 root root     4096 Feb  6 13:24 .kube/
+drwxr-xr-x  3 root root     4096 Feb  6 13:23 .local/
+drwxr-xr-x 10 root root     4096 Feb  6 12:59 .minikube/
+-rw-r--r--  1 root root      161 Dec  5  2019 .profile
+drwx------  2 root root     4096 Feb  6 12:35 .ssh/
+-rw-------  1 root root     7989 Feb  6 13:29 .viminfo
+-rw-r--r--  1 root root      338 Feb  6 13:29 Dockerfile
+-rw-r--r--  1 root root      329 Feb  6 13:15 deployment.yaml
+-rw-r--r--  1 root root      338 Feb  6 13:09 deployment.yml
+-rw-r--r--  1 root root    21927 Feb  6 12:53 get-docker.sh
+-rw-r--r--  1 root root      150 Feb  6 12:53 kubectl.sha256
+-rw-r--r--  1 root root 93670363 Feb  6 12:57 minikube-linux-amd64
+-rw-r--r--  1 root root      213 Feb  6 13:16 service.yaml
+-rw-r--r--  1 root root      219 Feb  6 13:10 service.yml
+drwx------  4 root root     4096 Feb  6 12:35 snap/
+drwxr-xr-x  3 root root     4096 Feb  6 12:40 wisecow/
+-rw-r--r--  1 root root      573 Feb  6 13:12 wisecow.sh
+
+=========================================================================================
+=========================================================================================
+
+
+
+Problem Statement 2:
+Please choose any two objectives from the list below and attempt to achieve them
+using either Bash or Python.
+
+I've completed the required scripts to achieve two objectives from the provided list for Problem Statement 2.
+=========================================================================================
+=========================================================================================
+
+
+
+1. System Health Monitoring Script:
+Develop a script that monitors the health of a Linux system. It should check
+CPU usage, memory usage, disk space, and running processes. If any of
+these metrics exceed predefined thresholds (e.g., CPU usage > 80%), the
+script should send an alert to the console or a log file.
+=========================================================================================
+
+#!/bin/bash
+
+# Define thresholds
+CPU_THRESHOLD=80
+MEMORY_THRESHOLD=80
+DISK_THRESHOLD=90
+
+# Get system metrics
+CPU_USAGE=$(top -b -n 1 | awk '/^%Cpu/ {print $2}' | cut -d. -f1)
+MEMORY_USAGE=$(free | awk '/Mem:/ {print int($3/$2*100)}')
+DISK_USAGE=$(df -h / | awk '/\// {print int($5)}')
+PROCESS_COUNT=$(ps aux --no-headers | wc -l)
+
+# Check CPU usage
+if [ "$CPU_USAGE" -gt "$CPU_THRESHOLD" ]; then
+    echo "Alert: High CPU usage - $CPU_USAGE%"
+fi
+
+# Check memory usage
+if [ "$MEMORY_USAGE" -gt "$MEMORY_THRESHOLD" ]; then
+    echo "Alert: High Memory usage - $MEMORY_USAGE%"
+fi
+
+# Check disk usage
+if [ "$DISK_USAGE" -gt "$DISK_THRESHOLD" ]; then
+    echo "Alert: High Disk usage - $DISK_USAGE%"
+fi
+
+# Check running processes
+if [ "$PROCESS_COUNT" -gt "$PROCESS_THRESHOLD" ]; then
+    echo "Alert: High number of running processes - $PROCESS_COUNT"
+fi
+=========================================================================================
+=========================================================================================
+2. Automated Backup Solution:
+Write a script to automate the backup of a specified directory to a remote
+server or a cloud storage solution. The script should provide a report on the
+success or failure of the backup operation.
+=========================================================================================
+#!/bin/bash
+
+# Source directory to backup
+SOURCE_DIR="/path/to/source_directory"
+
+# Remote server details
+REMOTE_USER="your_remote_user"
+REMOTE_HOST="your_remote_host"
+REMOTE_DIR="/path/to/remote_backup_directory"
+
+# Log file for backup report
+LOG_FILE="/path/to/backup_report.log"
+
+# Perform backup
+rsync -avz --delete "$SOURCE_DIR" "$REMOTE_USER"@"$REMOTE_HOST":"$REMOTE_DIR" &> "$LOG_FILE"
+
+# Check the rsync exit code
+if [ $? -eq 0 ]; then
+    echo "Backup completed successfully. Details in $LOG_FILE"
+else
+    echo "Backup failed. Check $LOG_FILE for more information."
+fi
+
+=========================================================================================
+=========================================================================================
+3. Log File Analyzer:
+Create a script that analyzes web server logs (e.g., Apache, Nginx) for
+common patterns such as the number of 404 errors, the most requested
+pages, or IP addresses with the most requests. The script should output a
+summarized report
+=========================================================================================
+#!/bin/bash
+
+# Replace 'access.log' with the actual path to your web server log file
+LOG_FILE="/var/log/apache2/access.log"
+
+# Number of top results to display
+TOP_COUNT=5
+
+# Check if log file exists
+if [ ! -f "$LOG_FILE" ]; then
+    echo "Error: Log file not found."
+    exit 1
+fi
+
+# Analyze web server logs
+echo "Analyzing web server logs: $LOG_FILE"
+
+# Number of 404 errors
+echo -e "\nTop $TOP_COUNT URLs with 404 errors:"
+awk '$9 == 404 {print $7}' "$LOG_FILE" | sort | uniq -c | sort -nr | head -n $TOP_COUNT
+
+# Most requested pages
+echo -e "\nTop $TOP_COUNT most requested pages:"
+awk '{print $7}' "$LOG_FILE" | sort | uniq -c | sort -nr | head -n $TOP_COUNT
+
+# IP addresses with the most requests
+echo -e "\nTop $TOP_COUNT IP addresses with the most requests:"
+awk '{print $1}' "$LOG_FILE" | sort | uniq -c | sort -nr | head -n $TOP_COUNT
+
+# Add more analysis as needed
+
+echo "Analysis complete."
+
+=========================================================================================
+=========================================================================================
